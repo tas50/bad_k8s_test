@@ -2,7 +2,8 @@ name: mondoo-scan
 
 on:
   pull_request:
-    branches: [ main ]
+  push:
+    branches: [main]
 
 jobs:
   test:
@@ -10,8 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Scan with Mondoo
-        uses: tas50/mondoo-github-action@main
+        uses: mondoohq/actions@main
         with:
-          path: 'nginx.yaml'
+          service_account_credentials: ${{ secrets.MONDOO_CLIENT_ACCOUNT }}
+          scan_type: docker_image
+          docker_image_name: ubuntu:22.04
