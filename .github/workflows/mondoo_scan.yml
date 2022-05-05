@@ -1,0 +1,17 @@
+name: mondoo-scan
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Scan with Mondoo
+        uses: tas50/mondoo-github-action@main
+        with:
+          path: 'nginx.yaml'
