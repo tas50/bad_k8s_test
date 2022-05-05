@@ -1,8 +1,9 @@
-name: mondoo
+name: mondoo-scan
 
 on:
   pull_request:
-    branches: [ main ]
+  push:
+    branches: [main]
 
 jobs:
   build:
@@ -10,10 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Scan with Mondoo
-        uses: mondoohq/actions@main
+        uses: mondoohq/actions@containers
         with:
           service_account_credentials: ${{ secrets.MONDOO_AGENT_ACCOUNT }}
-          scan_type: 'k8s'
-          path: 'nginx.yml'
+          scan_type: "docker"
+          path: "Dockerfile"
