@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Scan with Mondoo
-        uses: tas50/mondoo-github-action@main
+        uses: mondoohq/actions@main
         with:
-          path: 'nginx.yaml'
+          service_account_credentials: ${{ secrets.MONDOO_AGENT_ACCOUNT }}
+          scan_type: 'k8s'
+          path: 'nginx.yml'
