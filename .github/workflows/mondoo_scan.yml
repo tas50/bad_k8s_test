@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Scan with Mondoo
-        uses: mondoohq/actions@containers
+        uses: mondoohq/actions@containersv2
         with:
           service_account_credentials: ${{ secrets.MONDOO_AGENT_ACCOUNT }}
-          scan_type: "docker"
+          scan_type: "docker_image_from_dockerfile"
           path: "Dockerfile"
