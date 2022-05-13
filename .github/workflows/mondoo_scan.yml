@@ -11,7 +11,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Scan with Mondoo
-        uses: tas50/mondoo-github-action@main
-        with:
-          path: 'nginx.yaml'
+      - name: Dump env vars
+        run: env
