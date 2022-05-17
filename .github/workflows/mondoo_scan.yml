@@ -13,5 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Dump env vars
-        run: env
+      - name: Scan with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_CLIENT_ACCOUNT }}
+          scan_type: k8s
+          path: nginx.yml
