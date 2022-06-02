@@ -1,10 +1,10 @@
 name: mondoo-scan
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+  push:
+    branches: [main]
 
 jobs:
   test:
@@ -12,6 +12,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Dump env vars
-        run: env
+      - name: Scan with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_CLIENT_ACCOUNT }}
+          scan_type: "docker_image_from_dockerfile"
+          path: "Dockerfile"
