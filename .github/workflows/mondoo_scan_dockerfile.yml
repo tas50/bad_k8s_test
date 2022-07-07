@@ -1,4 +1,4 @@
-name: mondoo-scan
+name: mondoo-scan-dockerfile
 
 on:
   pull_request:
