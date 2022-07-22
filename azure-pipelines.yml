@@ -1,0 +1,36 @@
+# Docker Image Scan Mondoo pipeline
+#
+# The script uses the following secret:
+# - MONDOO_CLIENT_ACCOUNT - Mondoo Client credentials
+
+trigger:
+  - main
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  # docker image namespace
+  imageNamespace: my-docker-id
+  # docker image name
+  imageName: my-image-name
+
+steps:
+  - task: DockerInstaller@0
+    inputs:
+      dockerVersion: "17.09.0-ce"
+
+  - script: |
+      docker build -t $(imageNamespace)/$(imageName) .
+    displayName: "Build Docker image"
+
+  - script: |
+      echo ${MONDOO_CLIENT_ACCOUNT} | > mondoo.json
+      curl -sSL https://mondoo.com/download.sh | bash
+      ./mondoo version
+    displayName: "Install Mondoo"
+    env:
+      MONDOO_CLIENT_ACCOUNT: $(MONDOO_CLIENT_ACCOUNT)
+
+  - script: |
+      ./mondoo scan docker image $(imageNamespace)/$(imageName) --config mondoo.json
