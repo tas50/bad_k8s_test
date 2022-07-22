@@ -1,4 +1,4 @@
-name: mondoo-scan
+name: mondoo-scan-manifest
 
 on:
   push:
@@ -13,5 +13,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Dump env vars
-        run: env
+      - run: env
